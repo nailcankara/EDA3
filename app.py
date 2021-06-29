@@ -1,6 +1,6 @@
 import streamlit as st
 from multiapp import MultiApp
-from apps import home , VeriAnaliziFinal
+from apps import home , VeriGorsellestirme
 
 app = MultiApp()
 
