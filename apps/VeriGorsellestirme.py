@@ -14,14 +14,20 @@ def load_data():
         return None
 
 def Gorsellestir(degisken1,hedefDegisken,lineSelect):
+    
+
+    
+    
     degisken = degisken1 + "?"
     
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    
+
     df[degisken] = df[degisken].astype("object").fillna("NaN")
+
     barChartDf = pd.DataFrame(df.groupby([degisken],dropna=False).size(),columns=["Toplam"]).reset_index()
     barChartDf["Yüzde"] = barChartDf.Toplam / barChartDf.Toplam.sum()
-    
+
+
     figBar = px.bar(barChartDf, x=degisken, y="Yüzde",
                     color_discrete_sequence=px.colors.qualitative.Set2,hover_data=[barChartDf.Toplam],
                     text="Toplam")
@@ -33,7 +39,6 @@ def Gorsellestir(degisken1,hedefDegisken,lineSelect):
     lineChartDf = pd.DataFrame(df.groupby([degisken,hedefDegisken]).size(),columns=["Yüzde"]).reset_index()
     lineChartDf["Yüzde"] = (x/y).values
     lineChartDf["Yüzde"] = lineChartDf["Yüzde"].fillna(0)
-    
 
     
     figLine = px.line(lineChartDf,x=degisken,y="Yüzde",color=hedefDegisken,
@@ -64,7 +69,7 @@ def CategoricProcessing(degisken1,tol):
 
 def nonCategoricProcessing(degisken1,q):
     _, edges = pd.cut(df[degisken1], bins=q, retbins=True , right=False)
-    labels = [f'{abs(edges[i]):.2f}-{edges[i+1]:.2f}' for i in range(len(edges)-1)]
+    labels = [f'{abs(edges[i]):.1f}-{edges[i+1]:.1f}' for i in range(len(edges)-1)]
     seri = pd.cut(df[degisken1] , bins=q,labels=labels)
     df[degisken1+"?"] = seri.apply(lambda x:str(x).replace("(","").replace("]","").replace(", ","-"))
 
@@ -92,7 +97,7 @@ def VeriGorsellestirme(degisken1,hedefDegisken,q,tol,line):
     try:
         df.drop(columns=["{}?".format(degisken1)],inplace=True)
     except:
-        pass
+        return None
 
 
 
@@ -112,7 +117,7 @@ def app():
 
     degisken1W = st.sidebar.selectbox(label="X değişkeni",options=["Seç"] + list(df.columns))
     hedefDegiskenW = st.sidebar.selectbox(label="Hedef Değişken",options=["Seç"] + list(df.columns))
-    qW = st.sidebar.slider('Nümerik Değişken Dilim Sayısı', min_value=1, max_value=50 , value=5 , step=1, format="%d")
+    qW = st.sidebar.slider('Nümerik Değişken Dilim Sayısı', min_value=1, max_value=20 , value=5 , step=1, format="%d")
     tolW = st.sidebar.slider("Others için maksimum frekans (Kategorik)", min_value=0.0, max_value=1.0 , value=0.05 , step=0.001, format="%f")
     
     

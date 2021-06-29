@@ -16,6 +16,7 @@ class MultiApp:
 
         app['function']()
 
+
 app = MultiApp()
 
 st.image('./fibabanka-logo.png')
