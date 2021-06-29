@@ -1,5 +1,5 @@
-streamlit
-plotly
-pandas
-numpy
-feature-engine
+numpy==1.21.0
+pandas==1.2.5
+plotly==5.1.0
+streamlit==0.83.0
+feature-engine==1.1.0
