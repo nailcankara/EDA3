@@ -19,7 +19,7 @@ class MultiApp:
 app = MultiApp()
 
 st.image('./fibabanka-logo.png')
-st.markdown("UYGULAMALAR")
+st.subheader("UYGULAMALAR")
 
 app.add_app("Home", home.app)
 app.add_app("Veri Görselleştirme", VeriGorsellestirme.app)
