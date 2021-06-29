@@ -8,6 +8,6 @@ st.markdown("UYGULAMALAR")
 
 # Add all your application here
 app.add_app("Home", home.app)
-app.add_app("Veri Görselleştirme", VeriAnaliziFinal.app)
+app.add_app("Veri Görselleştirme", VeriGorsellestirme.app)
 # The main app
 app.run()
